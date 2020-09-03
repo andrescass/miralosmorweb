@@ -1,0 +1,18 @@
+<h1 class="row animated fadeIn"> {{ list.name | uppercase}} </h1>
+<small>Solicitada por: {{list.by}}</small>
+
+<hr>
+
+<div class="animated fadeIn fast">
+    <img [src]="list.img" class="img-fluid" [alt]=" list.name ">
+    <br><br>
+    <h3>{{ list.description }}</h3>
+    <div class="col-md-8">
+        <ul>
+            <li *ngFor="let m of list.movies">
+                <a href="{{ m.url }}">{{ m.name }}</a>
+            </li>
+        </ul>
+    </div>
+    <a [routerLink]="['/lists']" href="lists" class="btn btn-outline-danger btn-block">Regresar</a>
+</div>
