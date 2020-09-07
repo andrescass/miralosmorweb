@@ -10,4 +10,6 @@ router = routers.DefaultRouter()
  
 urlpatterns = [
     url(r'^$', views.HomePageView.as_view()),
+    url(r'^api/movielists$', views.movie_list_list),
+    url(r'^api/movies$', views.movie_list),
 ]
