@@ -1,5 +1,6 @@
 from django.conf.urls import url
 from django.urls import path, include
+from django.views.decorators.csrf import csrf_exempt
  
 from morweb import views
 from rest_framework import routers
@@ -10,6 +11,7 @@ router = routers.DefaultRouter()
  
 urlpatterns = [
     url(r'^$', views.HomePageView.as_view()),
-    url(r'^api/movielists$', views.movie_list_list),
+    url(r'^api/movielists$', csrf_exempt(views.movie_list_list)),
+    path('api/movielists/<name>', views.movie_list_detail),
     url(r'^api/movies$', views.movie_list),
 ]

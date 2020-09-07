@@ -1,22 +1,25 @@
 from rest_framework import serializers 
 from morweb.models import MovieList, Movie
 
+class MovieSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Movie
+        fields = ('id',
+        'name',
+        'link',
+        'words',)
+
 class MovieListSerializer(serializers.ModelSerializer):
+    movies = MovieSerializer(many = True, read_only=True)
     class Meta:
         model = MovieList
-        fields = ('name',
+        fields = ('id',
+        'name',
         'description',
         'img',
         'by',
         'words',
         'movies',
-        'words',)
-
-class MovieSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Movie
-        fields = ('name',
-        'link',
         'words',)
 
 class TagSerializer(serializers.ModelSerializer):
