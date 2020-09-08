@@ -69,7 +69,7 @@ def movie_list_by_tag(request, tag):
     # ... tutorial = Tutorial.objects.get(pk=pk)
     ml_tag = []
     try: 
-        mlists = MovieList.objects.all() 
+        mlists = MovieList.objects.filter(words__icontains=tag) 
     except MovieList.DoesNotExist: 
         return JsonResponse({'message': 'The list does not exist'}, status=status.HTTP_404_NOT_FOUND) 
     for ml in mlists:
@@ -77,7 +77,7 @@ def movie_list_by_tag(request, tag):
             if w == tag:
                 ml_tag.append(ml)
     if request.method == 'GET': 
-        mlist = MovieListSerializer(ml_tag, many=True) 
+        mlist = MovieListSerializer(mlists, many=True) 
         return JsonResponse(mlist.data)
 
 @api_view(['GET', 'POST', 'DELETE'])
