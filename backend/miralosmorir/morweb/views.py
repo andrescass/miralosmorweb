@@ -64,6 +64,22 @@ def movie_list_detail(request, name):
         ml[0].delete() 
         return JsonResponse({'message': 'List was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
 
+@api_view(['GET', 'PUT', 'DELETE'])
+def movie_list_by_tag(request, tag):
+    # ... tutorial = Tutorial.objects.get(pk=pk)
+    ml_tag = []
+    try: 
+        mlists = MovieList.objects.all() 
+    except MovieList.DoesNotExist: 
+        return JsonResponse({'message': 'The list does not exist'}, status=status.HTTP_404_NOT_FOUND) 
+    for ml in mlists:
+        for w in ml.words.split(' '):
+            if w == tag:
+                ml_tag.append(ml)
+    if request.method == 'GET': 
+        mlist = MovieListSerializer(ml_tag, many=True) 
+        return JsonResponse(mlist.data)
+
 @api_view(['GET', 'POST', 'DELETE'])
 def movie_list(request):
     if request.method == 'GET':
