@@ -8,6 +8,7 @@ class TagClass(models.Model):
 
 class Movie(models.Model):
     name = models.CharField(max_length=70, blank=True, default='')
+    year = models.CharField(max_length=70, blank=True, default='')
     link = models.CharField(max_length=70, blank=True, default='')
     words = models.CharField(max_length=70, blank=True, default='')
     mtags = models.ManyToManyField(TagClass, blank=True, related_name='movie_tags')

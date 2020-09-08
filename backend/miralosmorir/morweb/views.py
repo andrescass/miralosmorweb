@@ -96,6 +96,7 @@ def movie_list(request):
         movie_serializer = MovieSerializer(data=movie_data)
         if movie_serializer.is_valid():
             newMovie = Movie(name = movie_serializer.validated_data['name'],
+            year = movie_serializer.validated_data['year'],
             link = movie_serializer.validated_data['link'],
             words = movie_serializer.validated_data['words'])            
             newMovie.save()

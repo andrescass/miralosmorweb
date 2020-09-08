@@ -6,6 +6,7 @@ class MovieSerializer(serializers.ModelSerializer):
         model = Movie
         fields = ('id',
         'name',
+        'year',
         'link',
         'words',)
 
