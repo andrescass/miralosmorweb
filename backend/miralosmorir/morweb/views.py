@@ -78,7 +78,7 @@ def movie_list_by_tag(request, tag):
                 ml_tag.append(ml)
     if request.method == 'GET': 
         mlist = MovieListSerializer(mlists, many=True) 
-        return JsonResponse(mlist.data)
+        return JsonResponse(mlist.data, safe=False)
 
 @api_view(['GET', 'POST', 'DELETE'])
 def movie_list(request):
