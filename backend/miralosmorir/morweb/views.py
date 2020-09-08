@@ -109,3 +109,17 @@ def movie_list(request):
                             ml.save()
             return JsonResponse(movie_serializer.data, status=status.HTTP_201_CREATED) 
         return JsonResponse(movie_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def movie_detail(request, name):
+    # ... tutorial = Tutorial.objects.get(pk=pk)
+    try: 
+        m = Movie.objects.filter(name = name) 
+    except MovieList.DoesNotExist: 
+        return JsonResponse({'message': 'The list does not exist'}, status=status.HTTP_404_NOT_FOUND) 
+    if request.method == 'GET': 
+        mlist = MovieSerializer(m[0]) 
+        return JsonResponse(mlist.data)
+    elif request.method == 'DELETE': 
+        m[0].delete() 
+        return JsonResponse({'message': 'Movie was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)

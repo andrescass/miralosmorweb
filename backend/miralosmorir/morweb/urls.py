@@ -15,4 +15,5 @@ urlpatterns = [
     path('api/movielists/<name>', views.movie_list_detail),
     path('api/movieliststag/<tag>', views.movie_list_by_tag),
     url(r'^api/movies$', views.movie_list),
+    path('api/movies/<name>', views.movie_detail),
 ]
