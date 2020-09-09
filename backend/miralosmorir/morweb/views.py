@@ -55,7 +55,8 @@ def movie_list_detail(request, name):
     # ... tutorial = Tutorial.objects.get(pk=pk)
     try: 
         list_name = name.replace("_", " ")
-        ml = MovieList.objects.filter(name = list_name) 
+        list_name_l = list_name.replace("-", " ")
+        ml = MovieList.objects.filter(name = list_name_l) 
     except MovieList.DoesNotExist: 
         return JsonResponse({'message': 'The list does not exist'}, status=status.HTTP_404_NOT_FOUND) 
     if request.method == 'GET': 
@@ -116,7 +117,8 @@ def movie_detail(request, name):
     # ... tutorial = Tutorial.objects.get(pk=pk)
     try: 
         movie_name = name.replace("_", " ")
-        m = Movie.objects.filter(name = movie_name) 
+        movie_name_l = movie_name. replace("-", " ")
+        m = Movie.objects.filter(name = movie_name_l) 
     except MovieList.DoesNotExist: 
         return JsonResponse({'message': 'The list does not exist'}, status=status.HTTP_404_NOT_FOUND) 
     if request.method == 'GET': 
