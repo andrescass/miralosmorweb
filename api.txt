@@ -1,0 +1,48 @@
+Movie Lists Apis
+----------------
+
+- Obtener todas las listas
+GET a miralosmorserver.pythonanywhere.com/api/movielists
+
+- Obtener lista por el nombre:
+GET a miralosmorserver.pythonanywhere.com/api/movielists/<nombre>  (sin las llaves por supuesto)
+
+- Obtener lista por tag:
+GET a http://miralosmorserver.pythonanywhere.com/api/movieliststag/<tag>
+
+- Agregar nueva lista:
+POST a miralosmorserver.pythonanywhere.com/api/movielists
+en el cuerpo:
+{
+  "name" : "lista2",
+   "description" : "lista1",
+   "img" : "lista1",
+   "by" : "lista1",
+   "words" : "arriba levanta"
+}
+
+- Borrar lista:
+DELETE a miralosmorserver.pythonanywhere.com/api/movielists/<nombre>
+
+
+Movies APIs:
+------------
+
+- Obtener todas las películas
+GET a miralosmorserver.pythonanywhere.com/api/movies 
+
+- Obtener una película por el nombre
+GET a miralosmorserver.pythonanywhere.com/api/movies/<nomrbe>
+
+- Crear una nueva película
+POST a miralosmorserver.pythonanywhere.com/api/movies
+en el cuerpo:
+{
+    "name": "Movie3",
+    "year": "1963"
+    "words":"corchazo bajon",
+    "link" : "movie3"
+}
+
+- Borrar película
+DELETE a iralosmorserver.pythonanywhere.com/api/movies/<nombre>
