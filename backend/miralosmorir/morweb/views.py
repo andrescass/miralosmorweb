@@ -33,6 +33,7 @@ def movie_list_list(request):
         if mlist.is_valid():
             ml = MovieList(name = mlist.validated_data['name'], 
             description = mlist.validated_data['description'],
+            link = mlist.validated_data['link'],
             img = mlist.validated_data['img'],
             by = mlist.validated_data['by'],
             words = mlist.validated_data['words'])

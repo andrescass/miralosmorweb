@@ -16,6 +16,7 @@ en el cuerpo:
 {
   "name" : "lista2",
    "description" : "lista1",
+   "link" : "link1"
    "img" : "lista1",
    "by" : "lista1",
    "words" : "arriba levanta"
