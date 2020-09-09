@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+
 
 //Rutas
 import { APP_ROUTING } from './app.routes';
@@ -33,6 +35,7 @@ import { ListCardComponent } from './components/list-card/list-card.component';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     APP_ROUTING
   ],
   providers: [

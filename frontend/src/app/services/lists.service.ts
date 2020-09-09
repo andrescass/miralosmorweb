@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
 import { ListsComponent } from '../components/lists/lists.component';
+import { HttpClient } from '@angular/common/http';
+
 
 @Injectable({
     providedIn: 'root'
 })
 export class ListsService {
+
+    constructor(protected http: HttpClient){}
 
     private lists: List[] = [
         {
@@ -20,8 +24,12 @@ export class ListsService {
         }
       ];
 
-    getLists(): List[]{
-        return this.lists;
+    // getLists(): List[]{
+    //     return this.lists;
+    // }
+
+    getLists() {
+      return this.http.get('http://miralosmorserver.pythonanywhere.com/api/movielists');
     }
 
     getList(idx: number){

@@ -9,16 +9,23 @@ import { Router } from '@angular/router';
 })
 export class ListsComponent implements OnInit {
 
-  lists:List[] = [];
+  lists: any[] = [];
   constructor(private _listsService: ListsService,
               private router: Router) {
   }
 
   ngOnInit(): void {
-    this.lists = this._listsService.getLists();
-  }
+    this._listsService.getLists().subscribe( (data) => {
+      this.lists = data['results'];
+    },
+      (error) => {
+        console.error(error);
+      }
+    );
+    console.log(this.lists);
+  };
 
-  showList(idx:number){
-    this.router.navigate(['/list',idx]);
-  }
+  // showList(idx:number){
+  //   this.router.navigate(['/list',idx]);
+  // }
 }
