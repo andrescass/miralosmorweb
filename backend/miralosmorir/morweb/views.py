@@ -51,6 +51,20 @@ def movie_list_list(request):
             return JsonResponse(mlist.data, status=status.HTTP_201_CREATED) 
         return JsonResponse(mlist.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['GET', 'POST', 'DELETE'])
+def movie_list_mmorvip(request):
+    if request.method == 'GET':
+        mlists = MovieList.objects.filter(words__icontains="morvip")
+        mlist_serializer = MovieListSerializer(mlists, many=True)
+        return JsonResponse(mlist_serializer.data, safe=False)
+
+@api_view(['GET', 'POST', 'DELETE'])
+def movie_list_mmorir(request):
+    if request.method == 'GET':
+        mlists = MovieList.objects.filter(words__icontains="MiralosMorir")
+        mlist_serializer = MovieListSerializer(mlists, many=True)
+        return JsonResponse(mlist_serializer.data, safe=False)
+
 @api_view(['GET', 'PUT', 'DELETE'])
 def movie_list_detail(request, name):
     # ... tutorial = Tutorial.objects.get(pk=pk)

@@ -10,6 +10,15 @@ GET a miralosmorserver.pythonanywhere.com/api/movielists/<nombre>  (sin las llav
 - Obtener lista por tag:
 GET a http://miralosmorserver.pythonanywhere.com/api/movieliststag/<tag>
 
+- Obtener listas de Miralos Morvip (grupo de Telegram):
+GET a http://miralosmorserver.pythonanywhere.com/api/movielists-morvip
+
+- Obtener listas de Miralos Morir (y eventualmente del newsletter MMorvip):
+GET a http://miralosmorserver.pythonanywhere.com/api/movielists-mm
+
+- Obtener lista por tag:
+GET a http://miralosmorserver.pythonanywhere.com/api/movieliststag/<tag>
+
 - Agregar nueva lista:
 POST a miralosmorserver.pythonanywhere.com/api/movielists
 en el cuerpo:
