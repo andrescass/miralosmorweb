@@ -7,7 +7,7 @@ class TagClass(models.Model):
         return self.name
 
 class Movie(models.Model):
-    name = models.CharField(max_length=70, blank=True, default='')
+    name = models.CharField(max_length=150, blank=True, default='')
     year = models.CharField(max_length=70, blank=True, default='')
     link = models.CharField(max_length=70, unique=True, blank=False, default='')
     words = models.CharField(max_length=200, blank=True, default='')
