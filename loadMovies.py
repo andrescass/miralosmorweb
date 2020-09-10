@@ -27,9 +27,9 @@ if __name__ == "__main__":
             tags += sys.argv[i] + " "
         
         with open(fileN, mode='r') as csv_file:
-            csv_reader = csv.DictReader(csv_file)
+            csv_reader = csv.DictReader(csv_file, delimiter=',')
             line_count = 0
             for movie in csv_reader:
                 movieUpload(movie["Name"], movie["Year"], movie["URL"], tags)
                 line_count +=1
-        print(f'Subidas {line_count-1} películas')
+        print(f'Subidas {line_count} películas')
