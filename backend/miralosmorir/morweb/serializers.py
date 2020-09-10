@@ -17,6 +17,7 @@ class MovieListSerializer(serializers.ModelSerializer):
         fields = ('id',
         'name',
         'description',
+        'link',
         'img',
         'by',
         'words',

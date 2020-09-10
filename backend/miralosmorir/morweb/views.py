@@ -33,6 +33,7 @@ def movie_list_list(request):
         if mlist.is_valid():
             ml = MovieList(name = mlist.validated_data['name'], 
             description = mlist.validated_data['description'],
+            link = mlist.validated_data['link'],
             img = mlist.validated_data['img'],
             by = mlist.validated_data['by'],
             words = mlist.validated_data['words'])
@@ -54,7 +55,9 @@ def movie_list_list(request):
 def movie_list_detail(request, name):
     # ... tutorial = Tutorial.objects.get(pk=pk)
     try: 
-        ml = MovieList.objects.filter(name = name) 
+        list_name = name.replace("_", " ")
+        list_name_l = list_name.replace("-", " ")
+        ml = MovieList.objects.filter(name = list_name_l) 
     except MovieList.DoesNotExist: 
         return JsonResponse({'message': 'The list does not exist'}, status=status.HTTP_404_NOT_FOUND) 
     if request.method == 'GET': 
@@ -114,7 +117,9 @@ def movie_list(request):
 def movie_detail(request, name):
     # ... tutorial = Tutorial.objects.get(pk=pk)
     try: 
-        m = Movie.objects.filter(name = name) 
+        movie_name = name.replace("_", " ")
+        movie_name_l = movie_name. replace("-", " ")
+        m = Movie.objects.filter(name = movie_name_l) 
     except MovieList.DoesNotExist: 
         return JsonResponse({'message': 'The list does not exist'}, status=status.HTTP_404_NOT_FOUND) 
     if request.method == 'GET': 
