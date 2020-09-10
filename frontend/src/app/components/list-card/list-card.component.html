@@ -4,11 +4,11 @@
         <h5 class="card-title">{{ list.name }}</h5>
         <p class="card-text">{{ list.description }}</p>
         <p class="card-text"><small class="text-muted">Solicitada por: {{ list.by }}</small></p>
-        <button (click)="showList()" type="button" class="btn btn-outline-primary btn-block">
+        <button (click)="showList( list.name )" type="button" class="btn btn-outline-primary btn-block">
             Ver más...
         </button>
-        <!-- <a [routerLink]="['/heroe',i]" class="btn btn-outline-primary">
-            Ver más link...
+        <!-- <a [routerLink]="['/list', index]" class="btn btn-outline-primary">
+            Ver más...
         </a> -->
     </div>
 </div>

@@ -4,11 +4,14 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-home',
   templateUrl: './home.component.html'
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
+  // private audioDK = document.getElementById('audio_play');
+
+  // playAudio(isPaused: boolean){
+  //   if (this.audioDK.onpause) {
+  //     this.audioDK.pla; 
+  //   }
+  // }
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
-
 }

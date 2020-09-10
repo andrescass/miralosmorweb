@@ -2,15 +2,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
-
 //Rutas
 import { APP_ROUTING } from './app.routes';
 
-
-
 //Servicios
 import { ListsService } from './services/lists.service';
-
 
 //Componentes
 import { AppComponent } from './app.component';
@@ -39,7 +35,7 @@ import { ListCardComponent } from './components/list-card/list-card.component';
     APP_ROUTING
   ],
   providers: [
-    ListsService
+    HttpClientModule
   ],
   bootstrap: [AppComponent]
 })

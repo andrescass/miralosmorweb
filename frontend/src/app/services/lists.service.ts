@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ListsComponent } from '../components/lists/lists.component';
 import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 
 
 @Injectable({
@@ -8,57 +9,75 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ListsService {
 
-    constructor(protected http: HttpClient){}
+    constructor(private http: HttpClient){}
 
-    private lists: List[] = [
-        {
-          name: "Miralos Deprimirse",
-          description: "Que mirar cuando te querés cortar las venas con una galletita de agua humeda?",
-          img: "assets/img/ninioPijama.jpg",
-          by: "Nico Annia",
-          words: "corchazo, tiro en los huevos, suicidio, depre",
-          movies: [{name: "The Boy in the Striped Pijamas", url: "https://letterboxd.com/film/the-boy-in-the-striped-pyjamas/"},
-                    {name: "Her", url: "https://letterboxd.com/film/her/"},
-                    {name: "Blue Valentine", url: "https://letterboxd.com/film/blue-valentine/"},
-                    {name: "Amour", url: "https://letterboxd.com/film/amour/"}]
-        }
-      ];
-
-    // getLists(): List[]{
-    //     return this.lists;
-    // }
+    private lists: ListModel[] = [];
+    private list: ListModel;
 
     getLists() {
-      return this.http.get('http://miralosmorserver.pythonanywhere.com/api/movielists');
+      return this.http.get('http://miralosmorserver.pythonanywhere.com/api/movielists')
+        .pipe(
+          map( this.createArray )
+        );
     }
 
-    getList(idx: number){
-        return this.lists[idx];
+    private createArray( listsObj: object){
+      const lists: ListModel[] = [];
+      if (listsObj === null) { return []; }
+      Object.keys( listsObj ).forEach( key => {
+        const list: ListModel = listsObj[key];
+        list.id = key;
+        lists.push( list );
+      });
+      return lists;
     }
 
-    searchList( word: string){
-
-      let listsArray:List[]=[];
-      word = word.toLowerCase();
-      for (let list of this.lists){
-        let name = list.words.toLowerCase();
-        if (name.indexOf(word) >= 0) {
-          listsArray.push(list);
-        }
-      }
-      return listsArray;
+    getList(listName: string){
+      listName = listName.replace(' ', '_');
+      // Recupero la Lista clickeada por nombre
+      return this.http.get(`http://miralosmorserver.pythonanywhere.com/api/movielists/${listName}`)
     }
+
+     searchList( word: string){
+
+       let listsArray:ListModel[]=[];
+       word = word.toLowerCase();
+       for (let list of this.lists){
+         let name = list.words.toLowerCase();
+         if (name.indexOf(word) >= 0) {
+           listsArray.push(list);
+         }
+       }
+       return listsArray;
+     }
 }
 
-export interface Movies{
+export class ListModel {
+  id: string;
   name: string;
-  url: string;
+  description: string;
+  link: string;
+  img: string;
+  by: string;
+  words: string;
+  movies: Movies[];
 }
-export interface List{
-    name: string;
-    description: string;
-    img: string;
-    by: string;
-    words: string;
-    movies: Movies[];
+export class Movies{
+  id: number;
+  name: string;
+  year: string;
+  link: string;
+  words: string;
 }
+// export interface Movies{
+//   name: string;
+//   url: string;
+// }
+// export interface List{
+//     name: string;
+//     description: string;
+//     img: string;
+//     by: string;
+//     words: string;
+//     movies: Movies[];
+// }

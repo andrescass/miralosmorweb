@@ -17,7 +17,7 @@ const ROUTES: Routes = [
     { path: 'home', component: HomeComponent },
     { path: 'about', component: AboutComponent },
     { path: 'lists', component: ListsComponent },
-    { path: 'list/:id', component: ListComponent },
+    { path: 'list/:listName', component: ListComponent },
     { path: 'search/:word', component: SearchComponent },
     { path: '**', pathMatch: 'full', redirectTo: 'home' }
     //{ path: '**', component: PageNotFoundComponent, redirectTo: 'home' },
