@@ -6,7 +6,7 @@ class MovieAdmin(admin.ModelAdmin):
     search_fields = ('name', 'words')
 
 # Register your models here.
-admin.site.register(Movie)
+#admin.site.register(Movie)
 admin.site.register(MovieList)
 admin.site.register(TagClass)
 admin.site.register(Movie, MovieAdmin)
