@@ -9,4 +9,4 @@ class MovieAdmin(admin.ModelAdmin):
 admin.site.register(Movie)
 admin.site.register(MovieList)
 admin.site.register(TagClass)
-admin.site.register(MovieAdmin)
+admin.site.register(Movie, MovieAdmin)
