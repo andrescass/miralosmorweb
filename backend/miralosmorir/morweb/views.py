@@ -144,22 +144,22 @@ def movie_detail(request, name):
         return JsonResponse({'message': 'Movie was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['PUT'])
-def movie_update(request, link):
+def movie_update(request, pk):
     try: 
-        m = Movie.objects.filter(link = link) 
+        m = Movie.objects.get(id = pk) 
     except MovieList.DoesNotExist: 
         return JsonResponse({'message': 'The movie does not exist'}, status=status.HTTP_404_NOT_FOUND)
     if request.method == 'PUT':
         movie_data = JSONParser().parse(request)
         movie_serializer = MovieSerializer(data=movie_data)
         if movie_serializer.is_valid():
-            m[0].name = movie_serializer.validated_data['name']
-            m[0].year = movie_serializer.validated_data['year'],
-            m[0].link = movie_serializer.validated_data['link'],
-            m[0].words += " " + movie_serializer.validated_data['words']
-            m[0].save()
+            m.name = movie_serializer.validated_data['name']
+            m.year = movie_serializer.validated_data['year'],
+            m.link = movie_serializer.validated_data['link'],
+            m.words += " " + movie_serializer.validated_data['words']
+            m.save()
             mlists = MovieList.objects.all()
-            for mt in m[0].words.split(' '):
+            for mt in m.words.split(' '):
                 for ml in mlists:
                     for t in ml.words.split(' '):
                         if t == mt:                            
