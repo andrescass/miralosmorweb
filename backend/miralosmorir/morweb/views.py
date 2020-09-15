@@ -135,10 +135,35 @@ def movie_detail(request, name):
         movie_name_l = movie_name. replace("-", " ")
         m = Movie.objects.filter(name = movie_name_l) 
     except MovieList.DoesNotExist: 
-        return JsonResponse({'message': 'The list does not exist'}, status=status.HTTP_404_NOT_FOUND) 
+        return JsonResponse({'message': 'The movie does not exist'}, status=status.HTTP_404_NOT_FOUND) 
     if request.method == 'GET': 
         mlist = MovieSerializer(m[0]) 
         return JsonResponse(mlist.data)
     elif request.method == 'DELETE': 
         m[0].delete() 
         return JsonResponse({'message': 'Movie was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['PUT'])
+def movie_update(request, link):
+    try: 
+        m = Movie.objects.filter(link = link) 
+    except MovieList.DoesNotExist: 
+        return JsonResponse({'message': 'The movie does not exist'}, status=status.HTTP_404_NOT_FOUND)
+    if request.method == 'PUT':
+        movie_data = JSONParser().parse(request)
+        movie_serializer = MovieSerializer(data=movie_data)
+        if movie_serializer.is_valid():
+            m[0].name = movie_serializer.validated_data['name']
+            m[0].year = movie_serializer.validated_data['year'],
+            m[0].link = movie_serializer.validated_data['link'],
+            m[0].words += " " + movie_serializer.validated_data['words']
+            m[0].save()
+            mlists = MovieList.objects.all()
+            for mt in m[0].words.split(' '):
+                for ml in mlists:
+                    for t in ml.words.split(' '):
+                        if t == mt:                            
+                            ml.movies.add(m[0])
+                            ml.save()
+            return JsonResponse(movie_serializer.data, status=status.HTTP_201_CREATED) 
+        return JsonResponse(movie_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
