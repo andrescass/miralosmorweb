@@ -8,6 +8,7 @@ class MovieSerializer(serializers.ModelSerializer):
         'name',
         'year',
         'cast',
+        'imdb_id',
         'director',
         'link',
         'words',)

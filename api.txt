@@ -54,5 +54,11 @@ en el cuerpo:
     "link" : "movie3"
 }
 
+- Editar una película con el id
+PUT a miralosmorserver.pythonanywhere.com/api/movie/update_pk/<pk>
+
+- Editar una película con el imdb_id
+PUT a miralosmorserver.pythonanywhere.com/api/movie/update_id/<imdb_id>
+
 - Borrar película
 DELETE a iralosmorserver.pythonanywhere.com/api/movies/<nombre>

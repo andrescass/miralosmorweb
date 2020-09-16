@@ -144,7 +144,7 @@ def movie_detail(request, name):
         return JsonResponse({'message': 'Movie was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['PUT'])
-def movie_update(request, pk):
+def movie_update_pk(request, pk):
     try:
         m = Movie.objects.get(id = pk)
     except MovieList.DoesNotExist:
@@ -157,6 +157,28 @@ def movie_update(request, pk):
             m.year = movie_serializer.validated_data['year'],
             m.director = movie_serializer.validated_data['director'],
             m.cast = movie_serializer.validated_data['cast'],
+            m.words += " " + movie_serializer.validated_data['words']
+            m.save()
+            mlists = MovieList.objects.all()
+            for mt in m.words.split(' '):
+                for ml in mlists:
+                    for t in ml.words.split(' '):
+                        if t == mt:
+                            ml.movies.add(m)
+                            ml.save()
+            return JsonResponse(movie_serializer.data, status=status.HTTP_201_CREATED)
+        return JsonResponse(movie_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['PUT'])
+def movie_update_id(request, imdb_id):
+    try:
+        m = Movie.objects.get(imdb_id = imdb_id)
+    except MovieList.DoesNotExist:
+        return JsonResponse({'message': 'The movie does not exist'}, status=status.HTTP_404_NOT_FOUND)
+    if request.method == 'PUT':
+        movie_data = JSONParser().parse(request)
+        movie_serializer = MovieSerializer(m, data=movie_data)
+        if movie_serializer.is_valid():
             m.words += " " + movie_serializer.validated_data['words']
             m.save()
             mlists = MovieList.objects.all()

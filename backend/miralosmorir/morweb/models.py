@@ -12,6 +12,7 @@ class Movie(models.Model):
     link = models.CharField(max_length=70, unique=True, blank=False, default='')
     director = models.CharField(max_length=150, blank=True, default='')
     cast = models.CharField(max_length=500, blank=True, default='')
+    imdb_id = models.CharField(max_length=70, unique=True, blank=False, default='')
     words = models.CharField(max_length=200, blank=True, default='')
     mtags = models.ManyToManyField(TagClass, blank=True, related_name='movie_tags')
     def __str__(self):
