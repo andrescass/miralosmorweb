@@ -155,6 +155,8 @@ def movie_update(request, pk):
         if movie_serializer.is_valid():
             m.name = movie_serializer.validated_data['name']
             m.year = movie_serializer.validated_data['year'],
+            m.director = movie_serializer.validated_data['director'],
+            m.cast = movie_serializer.validated_data['cast'],
             m.words += " " + movie_serializer.validated_data['words']
             m.save()
             mlists = MovieList.objects.all()
