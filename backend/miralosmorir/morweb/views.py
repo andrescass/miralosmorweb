@@ -115,7 +115,10 @@ def movie_list(request):
             newMovie = Movie(name = movie_serializer.validated_data['name'],
             year = movie_serializer.validated_data['year'],
             link = movie_serializer.validated_data['link'],
-            words = movie_serializer.validated_data['words'])
+            words = movie_serializer.validated_data['words'],
+            director = movie_serializer.validated_data['director'],
+            cast = movie_serializer.validated_data['cast'],
+            imdb_id = movie_serializer.validated_data['imdb_id'])
             newMovie.save()
             mlists = MovieList.objects.all()
             for mt in newMovie.words.split(' '):
