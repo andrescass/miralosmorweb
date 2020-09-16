@@ -30,3 +30,9 @@ class MovieList(models.Model):
     
     def __str__(self):
         return self.name
+
+class CalendarCite(models.Model):
+    name = models.CharField(max_length=150, blank=True, default='')
+    cite_date = models.BigIntegerField(blank=False)
+    is_discrod = models.BooleanField(default=False)
+    description = models.CharField(max_length=200, blank=True, default='')

@@ -11,7 +11,8 @@ def movieUpload(name, year, link, id, tags):
     mov = requests.get(get_url)
     mov_dict = mov.json()
     for i in range(0,5):
-        cast += mov_dict['cast'][i]['name'] + ','
+        if i < len(mov_dict['cast']):
+            cast += mov_dict['cast'][i]['name'] + ','
     for c in mov_dict['crew']:
         if c['job'] == 'Director':
             director = c['name']
@@ -30,7 +31,16 @@ def movieUpload(name, year, link, id, tags):
 
     response = requests.post('http://miralosmorserver.pythonanywhere.com/api/movies', jsonData)
 
-    print("{0} with code: {1}".format(name,response.status_code))
+    if response.status_code == 400:
+        id_dict = {
+            "words": tags
+        }
+        id_json = json.dumps(id_dict)
+        put_url = 'http://miralosmorserver.pythonanywhere.com/api/movie/update_id/' + id
+        response = requests.put(put_url, id_json)
+        print("{0} updated with code: {1}".format(name,response.status_code))
+    else:    
+        print("{0} with code: {1}".format(name,response.status_code))
 
 if __name__ == "__main__":
     if(len(sys.argv) < 3):
