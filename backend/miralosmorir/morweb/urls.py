@@ -24,6 +24,6 @@ urlpatterns = [
     path('api/calendar/cite/<pk>', views.calendar_detail),
     url(r'^api/calendar/newcite$', csrf_exempt(views.calendar_list)),
     path('api/calendar/updatecite/<pk>', views.calendar_detail),
-    path('api/calendar/calendar/delcite/<id>', views.calendar_detail),
+    path('api/calendar/calendar/delcite/<pk>', views.calendar_detail),
     url(r'^api/calendar/daletealatoda$', csrf_exempt(views.calendar_list)),
 ]
