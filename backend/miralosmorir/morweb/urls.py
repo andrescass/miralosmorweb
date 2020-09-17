@@ -20,4 +20,10 @@ urlpatterns = [
     path('api/movies/<name>', views.movie_detail),
     path('api/movie/update_pk/<pk>', views.movie_update_pk),
     path('api/movie/update_id/<imdb_id>', views.movie_update_id),
+    url(r'^api/calendar/all$', csrf_exempt(views.calendar_list)),
+    path('api/calendar/cite/<pk>', views.calendar_detail),
+    url(r'^api/calendar/newcite$', csrf_exempt(views.calendar_list)),
+    path('api/calendar/updatecite/<pk>', views.calendar_detail),
+    path('api/calendar/calendar/delcite/<id>', views.calendar_detail),
+    url(r'^api/calendar/daletealatoda$', csrf_exempt(views.calendar_list)),
 ]

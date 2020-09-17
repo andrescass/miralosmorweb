@@ -4,8 +4,8 @@ from rest_framework import status
 from django.shortcuts import render
 from django.views.generic import TemplateView
 
-from morweb.models import MovieList, Movie, TagClass
-from morweb.serializers import MovieListSerializer, MovieSerializer, TagSerializer
+from morweb.models import MovieList, Movie, TagClass, CalendarCite
+from morweb.serializers import MovieListSerializer, MovieSerializer, TagSerializer, CiteSerializer
 from rest_framework.decorators import api_view
 from django.views.decorators.csrf import csrf_exempt
 
@@ -14,6 +14,8 @@ from django.views.decorators.csrf import csrf_exempt
 class HomePageView(TemplateView):
     def get(self, request, **kwargs):
         return render(request, 'index.html', context=None)
+
+########  MOVIE LISTS #######
 
 @csrf_exempt
 @api_view(['GET', 'POST', 'DELETE'])
@@ -96,6 +98,8 @@ def movie_list_by_tag(request, tag):
     if request.method == 'GET':
         mlist = MovieListSerializer(mlists, many=True)
         return JsonResponse(mlist.data, safe=False)
+
+########  MOVIES #######
 
 @api_view(['GET', 'POST', 'DELETE'])
 def movie_list(request):
@@ -193,3 +197,45 @@ def movie_update_id(request, imdb_id):
                             ml.save()
             return JsonResponse(movie_serializer.data, status=status.HTTP_201_CREATED)
         return JsonResponse(movie_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+########  CALENDAR CITE #######
+@api_view(['GET', 'POST', 'DELETE'])
+def calendar_list(request):
+    # GET list of cites, POST a new cite, DELETE all cites
+    if request.method == 'GET':
+        cites = CalendarCite.objects.all()
+        cite_serializer = CiteSerializer(cites, many=True)
+        return JsonResponse(cite_serializer.data, safe=False)
+    elif request.method == 'POST':
+        cite_data = JSONParser().parse(request)
+        cite_serializer = CiteSerializer(data = cite_data)
+        if cite_serializer.is_valid():
+            cite_serializer.save()
+            return JsonResponse(cite_serializer.data, status=status.HTTP_201_CREATED) 
+        return JsonResponse(cite_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    elif request.method == 'DELETE':
+        count = CalendarCite.objects.all().delete()
+        return JsonResponse({'message': '{} Cites were deleted successfully!'.format(count[0])}, status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def calendar_detail(request, pk):
+    # find cite by pk (id)
+    try: 
+        cite = CalendarCite.objects.get(pk=pk) 
+    except CalendarCite.DoesNotExist: 
+        return JsonResponse({'message': 'The tutorial does not exist'}, status=status.HTTP_404_NOT_FOUND) 
+    # GET / PUT / DELETE tutorial
+    if request.method == 'GET': 
+        cite_serializer = CiteSerializer(tutorial) 
+        return JsonResponse(cite_serializer.data)
+    elif request.method == 'PUT': 
+        cite_data = JSONParser().parse(request) 
+        cite_serializer = CiteSerializer(cite, data=cite_data) 
+        if cite_serializer.is_valid(): 
+            cite_serializer.save() 
+            return JsonResponse(cite_serializer.data) 
+        return JsonResponse(cite_serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
+    elif request.method == 'DELETE': 
+        cite.delete() 
+        return JsonResponse({'message': 'Cite was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)

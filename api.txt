@@ -61,4 +61,36 @@ PUT a miralosmorserver.pythonanywhere.com/api/movie/update_pk/<pk>
 PUT a miralosmorserver.pythonanywhere.com/api/movie/update_id/<imdb_id>
 
 - Borrar película
-DELETE a iralosmorserver.pythonanywhere.com/api/movies/<nombre>
+DELETE a miralosmorserver.pythonanywhere.com/api/movies/<nombre>
+
+
+
+Cite api
+--------
+- Obtener todas las citas:
+GET a miralosmorserver.pythonanywhere.com/api/calendar/all
+- Obtener una cita por id
+GET a miralosmorserver.pythonanywhere.com/api/calendar/cite/<id>
+
+- Crear nueva cita
+POST a miralosmorserver.pythonanywhere.com/api/calendar/newcite con cuerpo:
+{
+    "title": "---",
+    "start": "---",
+    "end": "---",
+    "description": "---",
+    "discord": True/False,
+    "allDay": True/False
+}
+
+- Modificar cita
+PUT a miralosmorserver.pythonanywhere.com/api/calendar/updatecite/<id> con cuerpo:
+{
+  'lo que desees modificar siguiendo el esquema anterior"
+}
+
+- Borrar una cita
+DELETE a miralosmorserver.pythonanywhere.com/api/calendar/delcite/<id>
+
+- Borrar todas las citas
+DELETE a miralosmorserver.pythonanywhere.com/api/calendar/daletealatoda

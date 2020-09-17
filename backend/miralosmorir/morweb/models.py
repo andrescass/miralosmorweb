@@ -32,7 +32,9 @@ class MovieList(models.Model):
         return self.name
 
 class CalendarCite(models.Model):
-    name = models.CharField(max_length=150, blank=True, default='')
-    cite_date = models.BigIntegerField(blank=False)
-    is_discrod = models.BooleanField(default=False)
-    description = models.CharField(max_length=200, blank=True, default='')
+    title = models.CharField(max_length=150, blank=True, default='')
+    start = models.CharField(max_length=150, blank=True, default='')
+    end = models.CharField(max_length=150, blank=True, default='')
+    discord = models.BooleanField(default=False)
+    allDay = models.BooleanField(default=False)
+    description = models.CharField(max_length=300, blank=True, default='')
