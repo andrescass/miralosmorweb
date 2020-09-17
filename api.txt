@@ -90,7 +90,7 @@ PUT a miralosmorserver.pythonanywhere.com/api/calendar/updatecite/<id> con cuerp
 }
 
 - Borrar una cita
-DELETE a miralosmorserver.pythonanywhere.com/api/calendar/delcite/<id>
+DELETE a miralosmorserver.pythonanywhere.com/api/calendar/calendar/delcite/<id>
 
 - Borrar todas las citas
 DELETE a miralosmorserver.pythonanywhere.com/api/calendar/daletealatoda
