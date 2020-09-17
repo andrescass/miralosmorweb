@@ -79,8 +79,8 @@ POST a miralosmorserver.pythonanywhere.com/api/calendar/newcite con cuerpo:
     "start": "---",
     "end": "---",
     "description": "---",
-    "discord": True/False,
-    "allDay": True/False
+    "discord": "TRUE"/"FALSE",
+    "allDay": "TRUE"/"FALSE"
 }
 
 - Modificar cita
