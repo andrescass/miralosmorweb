@@ -26,7 +26,7 @@ class MovieList(models.Model):
     by = models.CharField(max_length=70, blank=True, default='')
     words = models.CharField(max_length=200, blank=True, default='')
     tags = models.ManyToManyField(TagClass, blank=True, related_name='tags')
-    movies = models.ManyToManyField(Movie, blank=True, related_name='Peliculas')
+    movies = models.ManyToManyField(Movie, blank=True, related_name='list')
     
     def __str__(self):
         return self.name

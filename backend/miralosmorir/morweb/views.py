@@ -199,6 +199,23 @@ def movie_update_id(request, imdb_id):
         return JsonResponse(movie_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+@api_view(['GET', 'POST', 'DELETE'])
+def movie_search(request, keyword):
+    if request.method == 'GET':
+        movies_d = Movie.objects.filter(director__icontains=keyword)
+        movies_c = Movie.objects.filter(cast__icontains=keyword)
+        mlist_d = []
+        mlist_c = []
+        for m in movies_d:
+            mlist_d.add(m.movielist)
+
+        title = request.GET.get('name', None)
+        if title is not None:
+            movies = movies.filter(title__icontains=title)
+
+        movie_serializer = MovieSerializer(movies, many=True)
+        return JsonResponse(movie_serializer.data, safe=False)
+
 ########  CALENDAR CITE #######
 @api_view(['GET', 'POST', 'DELETE'])
 def calendar_list(request):
