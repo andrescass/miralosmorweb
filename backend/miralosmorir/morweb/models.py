@@ -40,7 +40,7 @@ class CalendarCite(models.Model):
     description = models.CharField(max_length=300, blank=True, default='')
 
 class MovieSearch(models.Model):
-    movie_id = models.IntegerField(blank=True)
+    movie_id = models.CharField(max_length=150, blank=True, default='')
     movie_name = models.CharField(max_length=150, blank=True, default='')
     search_field = models.CharField(max_length=150, blank=True, default='')
     movie_lists = models.CharField(max_length=300, blank=True, default='')
