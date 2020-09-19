@@ -218,7 +218,7 @@ def movie_search(request, keyword):
             movie_name=m.name, 
             search_field='Director', 
             movie_lists=lists_names, 
-            movie_lists_ids=lists_ids)
+            movie_list_ids=lists_ids)
             return_list.append(newMovie)
         for m in movies_c:
             lists_names = ''
@@ -231,7 +231,7 @@ def movie_search(request, keyword):
             movie_name=m.name, 
             search_field='Cast', 
             movie_lists=lists_names, 
-            movie_lists_ids=lists_ids)
+            movie_list_ids=lists_ids)
             return_list.append(newMovie)
         movie_serializer = MovieSearchSerializer(return_list, many=True)
         return JsonResponse(movie_serializer.data, safe=False)
