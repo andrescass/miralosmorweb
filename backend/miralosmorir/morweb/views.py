@@ -225,7 +225,7 @@ def movie_search(request, keyword):
                 lists_ids += str(l.id) + ','
             newMovie = MovieSearch(m.id, m.name, 'Cast', lists_names, lists_ids)
             return_list.append(newMovie)
-        movie_serializer = MovieSerializer(return_list, many=True)
+        movie_serializer = MovieSearchSerializer(return_list, many=True)
         return JsonResponse(movie_serializer.data, safe=False)
 
 ########  CALENDAR CITE #######
