@@ -208,18 +208,20 @@ def movie_search(request, keyword):
         return_list = []
 
         for m in movies_d:
-            lists = ''
+            lists_names = ''
             lists_ids = ''
-            for l in m.list:
-                lists += l.name + ','
+            lists = MovieList.objects.filter(movie__id = m.id)
+            for l in lists:
+                lists_name += l.name + ','
                 lists_ids += l.id + ','
             newMovie = MovieSearch(m.id, m.name, 'Director', lists, lists_ids)
             return_list.append(newMovie)
         for m in movies_c:
             lists = ''
             lists_ids = ''
-            for l in m.list:
-                lists += l.name + ','
+            lists = MovieList.objects.filter(movie__id = m.id)
+            for l in lists:
+                lists_name += l.name + ','
                 lists_ids += l.id + ','
             newMovie = MovieSearch(m.id, m.name, 'Cast', lists, lists_ids)
             return_list.append(newMovie)
