@@ -210,7 +210,7 @@ def movie_search(request, keyword):
         for m in movies_d:
             lists_names = ''
             lists_ids = ''
-            lists = MovieList.objects.filter(movie__id = m.id)
+            lists = MovieList.objects.filter(movies__id = m.id)
             for l in lists:
                 lists_names += l.names + ','
                 lists_ids += l.id + ','
@@ -219,7 +219,7 @@ def movie_search(request, keyword):
         for m in movies_c:
             lists_names = ''
             lists_ids = ''
-            lists = MovieList.objects.filter(movie__id = m.id)
+            lists = MovieList.objects.filter(movies__id = m.id)
             for l in lists:
                 lists_names += l.name + ','
                 lists_ids += l.id + ','
