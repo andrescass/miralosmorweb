@@ -214,7 +214,11 @@ def movie_search(request, keyword):
             for l in lists:
                 lists_names += l.name + ','
                 lists_ids += str(l.id) + ','
-            newMovie = MovieSearch(m.id, m.name, 'Director', lists_names, lists_ids)
+            newMovie = MovieSearch(movie_id=m.id, 
+            movie_name=m.name, 
+            search_field='Director', 
+            movie_lists=lists_names, 
+            movie_lists_ids=lists_ids)
             return_list.append(newMovie)
         for m in movies_c:
             lists_names = ''
@@ -223,7 +227,11 @@ def movie_search(request, keyword):
             for l in lists:
                 lists_names += l.name + ','
                 lists_ids += str(l.id) + ','
-            newMovie = MovieSearch(m.id, m.name, 'Cast', lists_names, lists_ids)
+            newMovie = MovieSearch(movie_id=m.id, 
+            movie_name=m.name, 
+            search_field='Cast', 
+            movie_lists=lists_names, 
+            movie_lists_ids=lists_ids)
             return_list.append(newMovie)
         movie_serializer = MovieSearchSerializer(return_list, many=True)
         return JsonResponse(movie_serializer.data, safe=False)
