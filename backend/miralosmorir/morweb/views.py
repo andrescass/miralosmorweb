@@ -212,7 +212,7 @@ def movie_search(request, keyword):
             lists_ids = ''
             lists = MovieList.objects.filter(movies__id = m.id)
             for l in lists:
-                lists_names += l.names + ','
+                lists_names += l.name + ','
                 lists_ids += l.id + ','
             newMovie = MovieSearch(m.id, m.name, 'Director', lists_names, lists_ids)
             return_list.append(newMovie)
