@@ -46,7 +46,7 @@ class MovieSearchSerializer(serializers.ModelSerializer):
     class Meta:
         model = MovieSearch
         fields = (
-        'movie_name',
+        'movie_id',
         'movie_name',
         'search_field',
         'movie_lists',
