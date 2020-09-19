@@ -5,8 +5,8 @@ from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.db.models import Q
 
-from morweb.models import MovieList, Movie, TagClass, CalendarCite
-from morweb.serializers import MovieListSerializer, MovieSerializer, TagSerializer, CiteSerializer
+from morweb.models import MovieList, Movie, TagClass, CalendarCite, MovieSearch
+from morweb.serializers import MovieListSerializer, MovieSerializer, TagSerializer, CiteSerializer, MovieSearchSerializer
 from rest_framework.decorators import api_view
 from django.views.decorators.csrf import csrf_exempt
 
@@ -203,9 +203,27 @@ def movie_update_id(request, imdb_id):
 @api_view(['GET', 'POST', 'DELETE'])
 def movie_search(request, keyword):
     if request.method == 'GET':
-        movies = Movie.objects.filter(Q(director__icontains=keyword) | 
-        Q(cast__icontains=keyword))
-        movie_serializer = MovieSerializer(movies, many=True)
+        movies_d = Movie.objects.filter(director__icontains=keyword)
+        movies_c = Movie.objects.filter(cast__icontains=keyword)
+        return_list = []
+
+        for m in movies_d:
+            lists = ''
+            lists_ids = ''
+            for l in m.list:
+                lists += l.name + ','
+                lists_ids += l.id + ','
+            newMovie = MovieSearch(m.id, m.name, 'Director', lists, lists_ids)
+            return_list.append(newMovie)
+        for m in movies_c:
+            lists = ''
+            lists_ids = ''
+            for l in m.list:
+                lists += l.name + ','
+                lists_ids += l.id + ','
+            newMovie = MovieSearch(m.id, m.name, 'Cast', lists, lists_ids)
+            return_list.append(newMovie)
+        movie_serializer = MovieSerializer(return_list, many=True)
         return JsonResponse(movie_serializer.data, safe=False)
 
 ########  CALENDAR CITE #######
