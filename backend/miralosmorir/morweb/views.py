@@ -3,6 +3,7 @@ from rest_framework.parsers import JSONParser
 from rest_framework import status
 from django.shortcuts import render
 from django.views.generic import TemplateView
+from django.db.models import Q
 
 from morweb.models import MovieList, Movie, TagClass, CalendarCite
 from morweb.serializers import MovieListSerializer, MovieSerializer, TagSerializer, CiteSerializer
@@ -202,17 +203,8 @@ def movie_update_id(request, imdb_id):
 @api_view(['GET', 'POST', 'DELETE'])
 def movie_search(request, keyword):
     if request.method == 'GET':
-        movies_d = Movie.objects.filter(director__icontains=keyword)
-        movies_c = Movie.objects.filter(cast__icontains=keyword)
-        mlist_d = []
-        mlist_c = []
-        for m in movies_d:
-            mlist_d.add(m.movielist)
-
-        title = request.GET.get('name', None)
-        if title is not None:
-            movies = movies.filter(title__icontains=title)
-
+        movies = Movie.objects.filter(Q(director__icontains=keyword) | 
+        Q(cast__icontains=keyword))
         movie_serializer = MovieSerializer(movies, many=True)
         return JsonResponse(movie_serializer.data, safe=False)
 
