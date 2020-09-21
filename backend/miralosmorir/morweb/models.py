@@ -9,7 +9,7 @@ class TagClass(models.Model):
 class Movie(models.Model):
     name = models.CharField(max_length=150, blank=True, default='')
     year = models.CharField(max_length=70, blank=True, default='')
-    link = models.CharField(max_length=70, unique=True, blank=False, default='')
+    link = models.CharField(max_length=100, unique=True, blank=False, default='')
     director = models.CharField(max_length=150, blank=True, default='')
     cast = models.CharField(max_length=500, blank=True, default='')
     imdb_id = models.CharField(max_length=70, unique=True, blank=False, default='')
