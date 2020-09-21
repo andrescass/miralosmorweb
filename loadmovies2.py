@@ -10,9 +10,8 @@ def movieUpload(name, year, link, id, tags):
     get_url = 'https://api.themoviedb.org/3/movie/' + id + '/credits?api_key=' + api_key
     mov = requests.get(get_url)
     mov_dict = mov.json()
-    for i in range(0,5):
-        if i < len(mov_dict['cast']):
-            cast += mov_dict['cast'][i]['name'] + ','
+    for c in mov_dict['cast']:
+        cast += c['name'] + ','
     for c in mov_dict['crew']:
         if c['job'] == 'Director':
             director = c['name']

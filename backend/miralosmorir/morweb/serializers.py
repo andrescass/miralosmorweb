@@ -1,5 +1,5 @@
 from rest_framework import serializers 
-from morweb.models import MovieList, Movie, CalendarCite
+from morweb.models import MovieList, Movie, CalendarCite, MovieSearch
 
 class MovieSerializer(serializers.ModelSerializer):
     class Meta:
@@ -41,3 +41,13 @@ class CiteSerializer(serializers.ModelSerializer):
         'description',
         'discord',
         'allDay')
+
+class MovieSearchSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MovieSearch
+        fields = (
+        'movie_id',
+        'movie_name',
+        'search_field',
+        'movie_lists',
+        'movie_list_ids')

@@ -3,9 +3,10 @@ from rest_framework.parsers import JSONParser
 from rest_framework import status
 from django.shortcuts import render
 from django.views.generic import TemplateView
+from django.db.models import Q
 
-from morweb.models import MovieList, Movie, TagClass, CalendarCite
-from morweb.serializers import MovieListSerializer, MovieSerializer, TagSerializer, CiteSerializer
+from morweb.models import MovieList, Movie, TagClass, CalendarCite, MovieSearch
+from morweb.serializers import MovieListSerializer, MovieSerializer, TagSerializer, CiteSerializer, MovieSearchSerializer
 from rest_framework.decorators import api_view
 from django.views.decorators.csrf import csrf_exempt
 
@@ -204,16 +205,35 @@ def movie_search(request, keyword):
     if request.method == 'GET':
         movies_d = Movie.objects.filter(director__icontains=keyword)
         movies_c = Movie.objects.filter(cast__icontains=keyword)
-        mlist_d = []
-        mlist_c = []
+        return_list = []
+
         for m in movies_d:
-            mlist_d.add(m.movielist)
-
-        title = request.GET.get('name', None)
-        if title is not None:
-            movies = movies.filter(title__icontains=title)
-
-        movie_serializer = MovieSerializer(movies, many=True)
+            lists_names = ''
+            lists_ids = ''
+            lists = MovieList.objects.filter(movies__id = m.id)
+            for l in lists:
+                lists_names += l.name + ','
+                lists_ids += str(l.id) + ','
+            newMovie = MovieSearch(movie_id=m.id, 
+            movie_name=m.name, 
+            search_field='Director', 
+            movie_lists=lists_names, 
+            movie_list_ids=lists_ids)
+            return_list.append(newMovie)
+        for m in movies_c:
+            lists_names = ''
+            lists_ids = ''
+            lists = MovieList.objects.filter(movies__id = m.id)
+            for l in lists:
+                lists_names += l.name + ','
+                lists_ids += str(l.id) + ','
+            newMovie = MovieSearch(movie_id=m.id, 
+            movie_name=m.name, 
+            search_field='Cast', 
+            movie_lists=lists_names, 
+            movie_list_ids=lists_ids)
+            return_list.append(newMovie)
+        movie_serializer = MovieSearchSerializer(return_list, many=True)
         return JsonResponse(movie_serializer.data, safe=False)
 
 ########  CALENDAR CITE #######

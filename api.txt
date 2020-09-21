@@ -63,6 +63,17 @@ PUT a miralosmorserver.pythonanywhere.com/api/movie/update_id/<imdb_id>
 - Borrar película
 DELETE a miralosmorserver.pythonanywhere.com/api/movies/<nombre>
 
+- Buscar película por palabra clave
+GET a miralosmorserver.pythonanywhere.com/api/movie/search/<keyword> por ahora funciona con una sola palabra a la vez
+Devuelve un JSON así:
+{
+  movie_id:673
+  movie_name:There's Something About Mary
+  search_field:Cast
+  movie_lists:Miralos Alegrarse,
+  movie_list_ids:6,
+}
+
 
 
 Cite api
