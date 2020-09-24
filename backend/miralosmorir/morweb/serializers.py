@@ -40,7 +40,8 @@ class CiteSerializer(serializers.ModelSerializer):
         'end',
         'description',
         'discord',
-        'allDay')
+        'allDay',
+        'citeClass')
 
 class MovieSearchSerializer(serializers.ModelSerializer):
     class Meta:

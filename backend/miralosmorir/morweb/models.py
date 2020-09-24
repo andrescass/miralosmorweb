@@ -38,6 +38,7 @@ class CalendarCite(models.Model):
     discord = models.BooleanField(default=False)
     allDay = models.BooleanField(default=False)
     description = models.CharField(max_length=300, blank=True, default='')
+    citeClass = models.CharField(max_length=75, blank=True, default='')
 
 class MovieSearch(models.Model):
     movie_id = models.CharField(max_length=150, blank=True, default='')
