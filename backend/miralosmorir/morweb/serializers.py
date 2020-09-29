@@ -11,7 +11,8 @@ class MovieSerializer(serializers.ModelSerializer):
         'imdb_id',
         'director',
         'link',
-        'words',)
+        'words',
+        'details',)
 
 class MovieListSerializer(serializers.ModelSerializer):
     movies = MovieSerializer(many = True, read_only=True)
