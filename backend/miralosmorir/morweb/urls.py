@@ -21,6 +21,7 @@ urlpatterns = [
     path('api/movie/update_pk/<pk>', views.movie_update_pk),
     path('api/movie/update_id/<imdb_id>', views.movie_update_id),
     path('api/movie/search/<keyword>', views.movie_search),
+    path('api/movie/search_director/<keywords>', views.movie_search_director),
     url(r'^api/calendar/all$', csrf_exempt(views.calendar_list)),
     path('api/calendar/cite/<pk>', views.calendar_detail),
     url(r'^api/calendar/newcite$', csrf_exempt(views.calendar_list)),

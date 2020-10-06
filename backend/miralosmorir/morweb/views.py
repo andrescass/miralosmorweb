@@ -237,6 +237,34 @@ def movie_search(request, keyword):
         movie_serializer = MovieSearchSerializer(return_list, many=True)
         return JsonResponse(movie_serializer.data, safe=False)
 
+@api_view(['GET'])
+def movie_search_director(request, keywords):
+    if request.method == 'GET':
+        return_list = []
+        queries = keywords.split('-')
+        criterions = Q(director__icontains=queries[0)
+        for i in range(1, len(queries)):
+            criterions &= Q(director__icontains=queries[i])
+        
+        movies = Movie.objects.filter(criterions)
+        for m in movies:
+            lists_names = ''
+            lists_ids = ''
+            lists = MovieList.objects.filter(movies__id = m.id)
+            for l in lists:
+                lists_names += l.name + ','
+                lists_ids += str(l.id) + ','
+            newMovie = MovieSearch(movie_id=m.id, 
+            movie_name=m.name, 
+            search_field='Director', 
+            movie_lists=lists_names, 
+            movie_list_ids=lists_ids)
+            return_list.append(newMovie)
+        movie_serializer = MovieSearchSerializer(return_list, many=True)
+        return JsonResponse(movie_serializer.data, safe=False)
+
+
+
 ########  CALENDAR CITE #######
 @api_view(['GET', 'POST', 'DELETE'])
 def calendar_list(request):
