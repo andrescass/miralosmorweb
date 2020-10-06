@@ -22,7 +22,7 @@ class Movie(models.Model):
 class MovieList(models.Model):
     name = models.CharField(max_length=70, unique=True, blank=False, default='')
     description = models.CharField(max_length=200, blank=True, default='')
-    img = models.CharField(max_length=150, blank=True, default='')
+    img = models.CharField(max_length=200, blank=True, default='')
     link = models.CharField(max_length=70, blank=True, default='')
     by = models.CharField(max_length=70, blank=True, default='')
     words = models.CharField(max_length=200, blank=True, default='')
@@ -47,3 +47,5 @@ class MovieSearch(models.Model):
     search_field = models.CharField(max_length=150, blank=True, default='')
     movie_lists = models.CharField(max_length=300, blank=True, default='')
     movie_list_ids = models.CharField(max_length=150, blank=True, default='')
+    movie_director = models.CharField(max_length=150, blank=True, default='')
+    movie_year = models.CharField(max_length=70, blank=True, default='')

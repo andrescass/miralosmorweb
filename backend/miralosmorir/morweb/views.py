@@ -256,7 +256,37 @@ def movie_search_director(request, keywords):
                 lists_ids += str(l.id) + ','
             newMovie = MovieSearch(movie_id=m.id, 
             movie_name=m.name, 
+            movie_director = m.director,
+            movie_year = m.year, 
             search_field='Director', 
+            movie_lists=lists_names, 
+            movie_list_ids=lists_ids)
+            return_list.append(newMovie)
+        movie_serializer = MovieSearchSerializer(return_list, many=True)
+        return JsonResponse(movie_serializer.data, safe=False)
+
+@api_view(['GET'])
+def movie_search_name(request, keywords):
+    if request.method == 'GET':
+        return_list = []
+        queries = keywords.split('-')
+        criterions = Q(name__icontains=queries[0])
+        for i in range(1, len(queries)):
+            criterions &= Q(name__icontains=queries[i])
+        
+        movies = Movie.objects.filter(criterions)
+        for m in movies:
+            lists_names = ''
+            lists_ids = ''
+            lists = MovieList.objects.filter(movies__id = m.id)
+            for l in lists:
+                lists_names += l.name + ','
+                lists_ids += str(l.id) + ','
+            newMovie = MovieSearch(movie_id=m.id, 
+            movie_name=m.name,
+            movie_director = m.director,
+            movie_year = m.year, 
+            search_field='Name', 
             movie_lists=lists_names, 
             movie_list_ids=lists_ids)
             return_list.append(newMovie)
