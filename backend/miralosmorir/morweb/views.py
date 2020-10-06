@@ -242,7 +242,7 @@ def movie_search_director(request, keywords):
     if request.method == 'GET':
         return_list = []
         queries = keywords.split('-')
-        criterions = Q(director__icontains=queries[0)
+        criterions = Q(director__icontains=queries[0])
         for i in range(1, len(queries)):
             criterions &= Q(director__icontains=queries[i])
         
@@ -293,7 +293,7 @@ def calendar_detail(request, pk):
         return JsonResponse({'message': 'The tutorial does not exist'}, status=status.HTTP_404_NOT_FOUND) 
     # GET / PUT / DELETE tutorial
     if request.method == 'GET': 
-        cite_serializer = CiteSerializer(tutorial) 
+        cite_serializer = CiteSerializer(cite) 
         return JsonResponse(cite_serializer.data)
     elif request.method == 'PUT': 
         cite_data = JSONParser().parse(request) 
