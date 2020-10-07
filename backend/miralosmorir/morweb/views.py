@@ -271,9 +271,9 @@ def movie_search_name(request, keywords):
         return_list = []
         is_MM = False
         q_keys = keywords.split('_')
-        if len(q_keys) > 1 and q_keys[0] == "mm":
+        if len(q_keys) > 1 and q_keys[1] == "mm":
             is_MM = True
-        queries = keywords.split('-')
+        queries = q_keys[0].split('-')
         criterions = Q(name__icontains=queries[0])
         for i in range(1, len(queries)):
             criterions &= Q(name__icontains=queries[i])
