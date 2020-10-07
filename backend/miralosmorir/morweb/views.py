@@ -269,11 +269,17 @@ def movie_search_director(request, keywords):
 def movie_search_name(request, keywords):
     if request.method == 'GET':
         return_list = []
+        is_MM = False
+        q_keys = keywords.split('_')
+        if len(q_keys) > 1 and q_keys[0] == "mm":
+            is_MM = True
         queries = keywords.split('-')
         criterions = Q(name__icontains=queries[0])
         for i in range(1, len(queries)):
             criterions &= Q(name__icontains=queries[i])
-        
+        if is_MM:
+            criterions &= Q(words__icontains="MiralosMorir")
+
         movies = Movie.objects.filter(criterions)
         for m in movies:
             lists_names = ''
