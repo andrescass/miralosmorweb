@@ -241,16 +241,24 @@ def movie_search(request, keyword):
 def movie_search_director(request, keywords):
     if request.method == 'GET':
         return_list = []
-        queries = keywords.split('-')
+        is_MM = False
+        q_keys = keywords.split('_')
+        if len(q_keys) > 1 and q_keys[1] == "mm":
+            is_MM = True
+        queries = q_keys[0].split('-')
         criterions = Q(director__icontains=queries[0])
         for i in range(1, len(queries)):
             criterions &= Q(director__icontains=queries[i])
+        if is_MM:
+            criterions &= Q(words__icontains="MiralosMorir")
         
         movies = Movie.objects.filter(criterions)
         for m in movies:
             lists_names = ''
             lists_ids = ''
             lists = MovieList.objects.filter(movies__id = m.id)
+            if is_MM:
+                list_q = list_q & Q(words__icontains="MiralosMorir")
             for l in lists:
                 lists_names += l.name + ','
                 lists_ids += str(l.id) + ','
@@ -258,6 +266,7 @@ def movie_search_director(request, keywords):
             movie_name=m.name, 
             movie_director = m.director,
             movie_year = m.year, 
+            movie_detail = m.details, 
             search_field='Director', 
             movie_lists=lists_names, 
             movie_list_ids=lists_ids)
@@ -294,7 +303,8 @@ def movie_search_name(request, keywords):
             newMovie = MovieSearch(movie_id=m.id, 
             movie_name=m.name,
             movie_director = m.director,
-            movie_year = m.year, 
+            movie_year = m.year,
+            movie_detail = m.details, 
             search_field='Name', 
             movie_lists=lists_names, 
             movie_list_ids=lists_ids)

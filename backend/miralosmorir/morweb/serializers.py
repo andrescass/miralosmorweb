@@ -52,6 +52,7 @@ class MovieSearchSerializer(serializers.ModelSerializer):
         'movie_name',
         'movie_director',
         'movie_year',
+        'movie_detail',
         'search_field',
         'movie_lists',
         'movie_list_ids')
