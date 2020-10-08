@@ -284,7 +284,10 @@ def movie_search_name(request, keywords):
         for m in movies:
             lists_names = ''
             lists_ids = ''
-            lists = MovieList.objects.filter(movies__id = m.id)
+            list_q = Q(movies__id = m.id)
+            if is_MM:
+                list_q = list_q & Q(words__icontains="MiralosMorir")
+            lists = MovieList.objects.filter(list_q)
             for l in lists:
                 lists_names += l.name + ','
                 lists_ids += str(l.id) + ','
