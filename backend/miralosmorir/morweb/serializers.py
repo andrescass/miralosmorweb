@@ -22,6 +22,7 @@ class MovieListSerializer(serializers.ModelSerializer):
         'name',
         'description',
         'link',
+        'ext_link',
         'img',
         'by',
         'words',
@@ -55,4 +56,5 @@ class MovieSearchSerializer(serializers.ModelSerializer):
         'movie_detail',
         'search_field',
         'movie_lists',
+        'movie_lists_links',
         'movie_list_ids')

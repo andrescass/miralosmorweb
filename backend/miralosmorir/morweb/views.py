@@ -256,6 +256,7 @@ def movie_search_director(request, keywords):
         for m in movies:
             lists_names = ''
             lists_ids = ''
+            lists_links = ''
             list_q = Q(movies__id = m.id)
             if is_MM:
                 list_q = list_q & Q(words__icontains="MiralosMorir")
@@ -263,13 +264,15 @@ def movie_search_director(request, keywords):
             for l in lists:
                 lists_names += l.name + ','
                 lists_ids += str(l.id) + ','
+                lists_links += l.ext_link + ','
             newMovie = MovieSearch(movie_id=m.id, 
             movie_name=m.name, 
             movie_director = m.director,
             movie_year = m.year, 
             movie_detail = m.details, 
             search_field='Director', 
-            movie_lists=lists_names, 
+            movie_lists=lists_names,
+            movie_lists_links=lists_links, 
             movie_list_ids=lists_ids)
             return_list.append(newMovie)
         movie_serializer = MovieSearchSerializer(return_list, many=True)
@@ -294,6 +297,7 @@ def movie_search_name(request, keywords):
         for m in movies:
             lists_names = ''
             lists_ids = ''
+            lists_links = ''
             list_q = Q(movies__id = m.id)
             if is_MM:
                 list_q = list_q & Q(words__icontains="MiralosMorir")
@@ -301,13 +305,15 @@ def movie_search_name(request, keywords):
             for l in lists:
                 lists_names += l.name + ','
                 lists_ids += str(l.id) + ','
+                lists_links += l.ext_link + ','
             newMovie = MovieSearch(movie_id=m.id, 
             movie_name=m.name,
             movie_director = m.director,
             movie_year = m.year,
             movie_detail = m.details, 
             search_field='Name', 
-            movie_lists=lists_names, 
+            movie_lists=lists_names,
+            movie_lists_links=lists_links, 
             movie_list_ids=lists_ids)
             return_list.append(newMovie)
         movie_serializer = MovieSearchSerializer(return_list, many=True)
