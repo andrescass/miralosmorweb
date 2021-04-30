@@ -40,6 +40,8 @@ def movie_list_list(request):
             img = mlist.validated_data['img'],
             by = mlist.validated_data['by'],
             words = mlist.validated_data['words'])
+            if 'MM' in words:
+                MovieList.ext_link = mlist.validated_data['ext_link']
             movies = Movie.objects.all()
             ml.save()
             for mw in ml.words.split(' '):
